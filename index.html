@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppleDroid — File manager per Mac e Android</title>
+<meta name="description" content="Naviga, trasferisci e gestisci i file del tuo telefono Android direttamente dal Mac. Via cavo o Wi-Fi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E11;
+    --surface:#14181D;
+    --line:#22272E;
+    --text:#EDEFF2;
+    --muted:#8A929D;
+    --blue:#4C8DFF;
+    --green:#4CAF7D;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.02em;
+  }
+  a{color:inherit;}
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- Nav ---------- */
+  nav.top{
+    padding:28px 0;
+  }
+  nav.top .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:17px;
+  }
+  .brand img{
+    width:28px; height:28px;
+    border-radius:7px;
+    display:block;
+  }
+  nav.top .links{
+    display:flex;
+    gap:28px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  nav.top .links a{ text-decoration:none; transition:color .15s; }
+  nav.top .links a:hover{ color:var(--text); }
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    padding:96px 0 88px;
+    opacity:0;
+    transform:translateY(14px);
+    animation:rise .7s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){
+    header.hero{ animation:none; opacity:1; transform:none; }
+  }
+
+  .kicker{
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:20px;
+    max-width:40ch;
+  }
+  .kicker .dot{
+    display:inline-block;
+    width:7px; height:7px;
+    border-radius:50%;
+    background:linear-gradient(90deg, var(--blue), var(--green));
+    margin-right:9px;
+    transform:translateY(-1px);
+  }
+
+  h1.headline{
+    font-size:clamp(38px, 5.4vw, 62px);
+    line-height:1.04;
+    max-width:14ch;
+    margin-bottom:26px;
+  }
+  h1.headline .bridge{
+    background:linear-gradient(90deg, var(--blue), var(--green));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  p.sub{
+    font-size:18px;
+    color:var(--muted);
+    max-width:46ch;
+    margin-bottom:40px;
+  }
+
+  .cta-row{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .btn-download{
+    display:inline-flex;
+    align-items:center;
+    gap:11px;
+    background:linear-gradient(90deg, var(--blue), var(--green));
+    color:#0B0E11;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:16px;
+    padding:15px 26px;
+    border-radius:12px;
+    text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease;
+    box-shadow:0 0 0 rgba(76,141,255,0);
+  }
+  .btn-download:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px -8px rgba(76,141,255,.45);
+  }
+  .btn-download svg{ width:18px; height:18px; }
+
+  .meta-line{
+    font-size:13.5px;
+    color:var(--muted);
+  }
+  .meta-line strong{ color:var(--text); font-weight:500; }
+
+  /* ---------- Bridge visual ---------- */
+  .bridge-visual{
+    margin-top:72px;
+    display:flex;
+    align-items:center;
+    gap:0;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .bv-side{
+    flex:1;
+    padding:34px 30px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .bv-side.mac{ border-right:1px solid var(--line); }
+  .bv-side h3{
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  .bv-mid{
+    width:64px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    align-self:stretch;
+    background:var(--surface);
+  }
+  .bv-mid svg{ width:22px; height:22px; }
+
+  /* ---------- Features ---------- */
+  section.features{
+    padding:88px 0;
+    border-top:1px solid var(--line);
+  }
+  section.features h2{
+    font-size:15px;
+    color:var(--muted);
+    font-weight:500;
+    font-family:'Inter', sans-serif;
+    margin-bottom:36px;
+  }
+  .feature-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .feature-row{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:24px;
+    padding:26px 0;
+    border-top:1px solid var(--line);
+  }
+  .feature-row:last-child{ border-bottom:1px solid var(--line); }
+  .feature-row h3{
+    font-size:18px;
+    font-weight:600;
+  }
+  .feature-row p{
+    color:var(--muted);
+    font-size:15px;
+    max-width:52ch;
+  }
+  @media (max-width:640px){
+    .feature-row{ grid-template-columns:1fr; gap:8px; }
+    .bridge-visual{ flex-direction:column; }
+    .bv-side.mac{ border-right:none; border-bottom:1px solid var(--line); }
+    .bv-mid{ padding:14px; width:auto; }
+  }
+
+  /* ---------- Install note ---------- */
+  section.install{
+    padding:80px 0;
+    border-top:1px solid var(--line);
+  }
+  section.install h2{
+    font-size:22px;
+    margin-bottom:14px;
+  }
+  section.install p{
+    color:var(--muted);
+    max-width:58ch;
+    font-size:15px;
+    margin-bottom:10px;
+  }
+  section.install code{
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:2px 8px;
+    border-radius:6px;
+    font-size:13.5px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:48px 0 64px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13.5px;
+    color:var(--muted);
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  footer a{ text-decoration:none; color:var(--muted); transition:color .15s; }
+  footer a:hover{ color:var(--text); }
+  footer .flinks{ display:flex; gap:22px; }
+
+  :focus-visible{
+    outline:2px solid var(--blue);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <img src="app-icon.png" alt="">
+      AppleDroid
+    </div>
+    <div class="links">
+      <a href="#features">Funzioni</a>
+      <a href="#install">Installazione</a>
+      <a id="nav-github" href="#" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker"><span class="dot"></span>Gratuito · macOS · via USB o Wi-Fi</p>
+    <h1 class="headline">Il tuo Android, dentro il tuo <span class="bridge">Mac</span>.</h1>
+    <p class="sub">Sfoglia cartelle, trascina foto e video, rinomina e organizza i file del telefono senza mai lasciare la scrivania.</p>
+
+    <div class="cta-row">
+      <a class="btn-download" id="download-btn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span id="download-label">Scarica per Mac</span>
+      </a>
+      <p class="meta-line" id="version-line">Controllo versione in corso…</p>
+    </div>
+
+    <div class="bridge-visual">
+      <div class="bv-side mac">
+        <h3>Sul Mac</h3>
+        Finder-like, con anteprime, ricerca, ordinamento e scorciatoie da tastiera native.
+      </div>
+      <div class="bv-mid">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="bv-side android">
+        <h3>Sul telefono</h3>
+        Nessuna app da installare: usa il debug USB o wireless già integrato in Android.
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="features" id="features">
+  <div class="wrap">
+    <h2>Cosa puoi fare</h2>
+    <div class="feature-list">
+      <div class="feature-row">
+        <h3>Trasferimenti in entrambi i sensi</h3>
+        <p>Trascina file dal Finder al telefono e viceversa, cartelle intere incluse, con una barra di avanzamento reale.</p>
+      </div>
+      <div class="feature-row">
+        <h3>USB o senza cavo</h3>
+        <p>Collega il telefono via cavo o via Wi-Fi sulla stessa rete. Passa dall'uno all'altro quando vuoi.</p>
+      </div>
+      <div class="feature-row">
+        <h3>Gestione completa dei file</h3>
+        <p>Crea cartelle, rinomina, elimina, cerca e ordina — tutto con le stesse scorciatoie che usi già su macOS.</p>
+      </div>
+      <div class="feature-row">
+        <h3>Spazio di archiviazione a colpo d'occhio</h3>
+        <p>Vedi quanto spazio è occupato sul telefono e come si suddivide tra foto, video, audio e documenti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="install" id="install">
+  <div class="wrap">
+    <h2>Prima apertura</h2>
+    <p>macOS potrebbe avvisarti che l'app proviene da uno sviluppatore non identificato. È normale per le app distribuite fuori dal Mac App Store.</p>
+    <p>Basta fare clic destro sull'app → <code>Apri</code> → confermare una volta. Le aperture successive saranno immediate.</p>
+  </div>
+</section>
+
+<footer>
+  <span>© <span id="year"></span> AppleDroid</span>
+  <div class="flinks">
+    <a id="footer-github" href="#" target="_blank" rel="noopener">Codice e release</a>
+    <a href="mailto:rocketcode.exe@gmail.com">Segnala un problema</a>
+    <a href="https://paypal.me/razzano13" target="_blank" rel="noopener">Sostieni il progetto</a>
+  </div>
+</footer>
+
+<script>
+  // ATTENZIONE: sostituisci con "utente/repository" reale su GitHub
+  const REPO = "TUO-USERNAME/AppleDroid";
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('nav-github').href = `https://github.com/${REPO}`;
+  document.getElementById('footer-github').href = `https://github.com/${REPO}/releases`;
+
+  fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => {
+      const asset = (data.assets || []).find(a => a.name.endsWith('.zip') || a.name.endsWith('.dmg'));
+      const url = asset ? asset.browser_download_url : data.html_url;
+      document.getElementById('download-btn').href = url;
+      document.getElementById('download-label').textContent = `Scarica per Mac`;
+      document.getElementById('version-line').innerHTML = `Ultima versione: <strong>${data.tag_name}</strong>`;
+    })
+    .catch(() => {
+      document.getElementById('download-btn').href = `https://github.com/${REPO}/releases`;
+      document.getElementById('version-line').textContent = 'Vedi tutte le versioni su GitHub';
+    });
+</script>
+
+</body>
+</html>
