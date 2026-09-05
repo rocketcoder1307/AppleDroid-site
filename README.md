@@ -37,8 +37,6 @@ Non installa nessuna app sul telefono: usa il **debug USB** o il **debug wireles
 | Telefono | Android con debug USB o debug wireless attivabile (Android 8.0+) |
 | Connessione | Cavo USB, oppure stessa rete Wi-Fi tra Mac e telefono |
 
-> Se distribuisci l'app per un target macOS diverso, verifica in Xcode → target → *Deployment Info* qual è la versione minima effettiva impostata nel progetto, e aggiorna questa tabella di conseguenza.
-
 ## Installazione
 
 1. Scarica l'ultima release dalla sezione [Releases](../../releases/latest) di questa repository.
