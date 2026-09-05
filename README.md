@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="app-icon.png" width="96" height="96" alt="AppleDroid" />
+<img src="images/app-icon.png" width="96" height="96" alt="AppleDroid" />
 
 # AppleDroid
 
