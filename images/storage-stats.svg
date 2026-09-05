@@ -1,0 +1,30 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="320" height="200" fill="#14181D"/>
+  <!-- donut chart -->
+  <g transform="translate(120,100)">
+    <circle r="52" fill="none" stroke="#22272E" stroke-width="18"/>
+    <!-- immagini 40% -->
+    <circle r="52" fill="none" stroke="#4C8DFF" stroke-width="18"
+      stroke-dasharray="130.7 326.7" stroke-dashoffset="0" transform="rotate(-90)"/>
+    <!-- video 28% -->
+    <circle r="52" fill="none" stroke="#4CAF7D" stroke-width="18"
+      stroke-dasharray="91.5 326.7" stroke-dashoffset="-130.7" transform="rotate(-90)"/>
+    <!-- audio 14% -->
+    <circle r="52" fill="none" stroke="#E8A23D" stroke-width="18"
+      stroke-dasharray="45.7 326.7" stroke-dashoffset="-222.2" transform="rotate(-90)"/>
+    <!-- altro 18% -->
+    <circle r="52" fill="none" stroke="#5A626B" stroke-width="18"
+      stroke-dasharray="58.8 326.7" stroke-dashoffset="-267.9" transform="rotate(-90)"/>
+  </g>
+  <!-- legenda -->
+  <g font-family="Helvetica, Arial, sans-serif">
+    <circle cx="212" cy="72" r="4" fill="#4C8DFF"/>
+    <text x="222" y="76" fill="#C7CCD3" font-size="10">Immagini</text>
+    <circle cx="212" cy="94" r="4" fill="#4CAF7D"/>
+    <text x="222" y="98" fill="#C7CCD3" font-size="10">Video</text>
+    <circle cx="212" cy="116" r="4" fill="#E8A23D"/>
+    <text x="222" y="120" fill="#C7CCD3" font-size="10">Audio</text>
+    <circle cx="212" cy="138" r="4" fill="#5A626B"/>
+    <text x="222" y="142" fill="#C7CCD3" font-size="10">Altro</text>
+  </g>
+</svg>

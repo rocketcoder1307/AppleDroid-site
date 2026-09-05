@@ -1,0 +1,37 @@
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+    <linearGradient id="accent1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4C8DFF"/>
+      <stop offset="100%" stop-color="#4CAF7D"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="200" fill="#14181D"/>
+  <!-- finestra -->
+  <rect x="24" y="24" width="272" height="152" rx="10" fill="#0B0E11" stroke="#22272E"/>
+  <!-- barra titolo -->
+  <rect x="24" y="24" width="272" height="26" rx="10" fill="#181D23"/>
+  <circle cx="38" cy="37" r="4" fill="#3A4149"/>
+  <circle cx="50" cy="37" r="4" fill="#3A4149"/>
+  <circle cx="62" cy="37" r="4" fill="#3A4149"/>
+  <rect x="128" y="33" width="88" height="8" rx="4" fill="#2A3038"/>
+  <!-- barra ricerca -->
+  <rect x="36" y="60" width="248" height="16" rx="8" fill="#181D23"/>
+  <circle cx="47" cy="68" r="3.5" fill="none" stroke="#5A626B" stroke-width="1.4"/>
+  <!-- righe file -->
+  <g>
+    <rect x="36" y="86" width="248" height="18" rx="4" fill="url(#accent1)" fill-opacity="0.16"/>
+    <rect x="44" y="91" width="9" height="9" rx="2" fill="#4C8DFF"/>
+    <rect x="60" y="93" width="120" height="5" rx="2.5" fill="#C7CCD3"/>
+    <rect x="260" y="93" width="20" height="5" rx="2.5" fill="#5A626B"/>
+  </g>
+  <g opacity="0.85">
+    <rect x="44" y="115" width="9" height="9" rx="2" fill="#4CAF7D"/>
+    <rect x="60" y="117" width="150" height="5" rx="2.5" fill="#8A929D"/>
+    <rect x="260" y="117" width="20" height="5" rx="2.5" fill="#4A515A"/>
+  </g>
+  <g opacity="0.85">
+    <rect x="44" y="139" width="9" height="9" rx="2" fill="#8A929D"/>
+    <rect x="60" y="141" width="95" height="5" rx="2.5" fill="#8A929D"/>
+    <rect x="260" y="141" width="20" height="5" rx="2.5" fill="#4A515A"/>
+  </g>
+</svg>
