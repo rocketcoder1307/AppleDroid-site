@@ -454,6 +454,10 @@
       </a>
       <p class="meta-line" id="version-line">Controllo versione in corso…</p>
     </div>
+    <p class="meta-line" style="margin-top:14px;">
+      Mac con macOS Monterey o Ventura?
+      <a id="legacy-link" href="#" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:underline;">Scarica la versione compatibile</a>
+    </p>
 
     <p class="compat-line">
       <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
@@ -592,15 +596,26 @@
   fetch(`https://api.github.com/repos/${REPO}/releases/latest`)
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
-      const asset = (data.assets || []).find(a => a.name.endsWith('.zip') || a.name.endsWith('.dmg'));
-      const url = asset ? asset.browser_download_url : data.html_url;
-      document.getElementById('download-btn').href = url;
-      document.getElementById('download-label').textContent = `Scarica per Mac`;
+      const assets = data.assets || [];
+      
+      // Cerchiamo lo zip "moderno" (senza la parola Monterey nel nome) e quello "legacy"
+      const modernAsset = assets.find(a => (a.name.endsWith('.zip') || a.name.endsWith('.dmg')) && !a.name.toLowerCase().includes('monterey'));
+      const legacyAsset = assets.find(a => a.name.toLowerCase().includes('monterey'));
+      
+      const modernUrl = modernAsset ? modernAsset.browser_download_url : data.html_url;
+      document.getElementById('download-btn').href = modernUrl;
       document.getElementById('version-line').innerHTML = `Ultima versione: <strong>${data.tag_name}</strong>`;
+      
+      if (legacyAsset) {
+        document.getElementById('legacy-link').href = legacyAsset.browser_download_url;
+      } else {
+        document.getElementById('legacy-link').href = `https://github.com/${REPO}/releases`;
+      }
     })
     .catch(() => {
       document.getElementById('download-btn').href = `https://github.com/${REPO}/releases`;
       document.getElementById('version-line').textContent = 'Vedi tutte le versioni su GitHub';
+      document.getElementById('legacy-link').href = `https://github.com/${REPO}/releases`;
     });
 
   // Nav: bordo inferiore solo dopo aver scrollato
