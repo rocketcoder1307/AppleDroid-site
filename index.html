@@ -599,8 +599,8 @@
       const assets = data.assets || [];
       
       // Cerchiamo lo zip "moderno" (senza la parola Monterey nel nome) e quello "legacy"
-      const modernAsset = assets.find(a => (a.name.endsWith('.zip') || a.name.endsWith('.dmg')) && !a.name.toLowerCase().includes('monterey'));
-      const legacyAsset = assets.find(a => a.name.toLowerCase().includes('monterey'));
+      const modernAsset = assets.find(a => (a.name.endsWith('.zip') || a.name.endsWith('.dmg')) && !a.name.toLowerCase().includes('legacy'));
+      const legacyAsset = assets.find(a => a.name.toLowerCase().includes('legacy'));
       
       const modernUrl = modernAsset ? modernAsset.browser_download_url : data.html_url;
       document.getElementById('download-btn').href = modernUrl;
